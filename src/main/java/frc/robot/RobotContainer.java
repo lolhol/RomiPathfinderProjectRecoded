@@ -69,6 +69,9 @@ public class RobotContainer {
                     renderTickCount++;
                 }
             });
+
+            cartographer.initiate("src/main/java/frc/robot/extern/config", "cartographer_config_main.lua", false,
+                    false, 10);
         }).start();
 
         subsystemPathExec.setDefaultCommand(
