@@ -177,7 +177,6 @@ public class SubsystemPathExec extends SubsystemBase {
     private void resetAllMotors() {
         drivetrain.forwardBackward(0);
         drivetrain.turn(false, 0);
-        // TODO: make @this
     }
 
     private double getAngle(double[] mCurSQGoing, float[] curPos) {

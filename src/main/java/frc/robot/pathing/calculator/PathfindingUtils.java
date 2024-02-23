@@ -1,7 +1,6 @@
 package frc.robot.pathing.calculator;
 
 public class PathfindingUtils {
-    // TODO: fix @this
     public static Node[] getNodeGrid(byte[] grid, int width) {
         Node[] nodes = new Node[grid.length];
         for (int i = 0; i < grid.length; i++) {
