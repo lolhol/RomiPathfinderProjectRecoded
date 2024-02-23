@@ -23,11 +23,11 @@ public class JFrameRenderer extends JPanel {
 
     private final OnMouseClickBoard onClick;
 
-    public JFrameRenderer(int width, int height, byte[] initDat, OnMouseClickBoard onClick) {
+    public JFrameRenderer(int width, int height, byte[] initDat, OnMouseClickBoard onClickBoard) {
         this.widthPX = width;
         this.heightPX = height;
         this.data = initDat;
-        this.onClick = onClick;
+        this.onClick = onClickBoard;
 
         frame = new JFrame("Grid Map");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,7 +39,7 @@ public class JFrameRenderer extends JPanel {
         frame.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                onClick.onMouseClickPosition(new int[]{e.getX(), e.getY()});
+                onClick.onMouseClickPosition(new int[]{e.getX(), e.getY()}, resolution, originX, originY);
             }
         });
 

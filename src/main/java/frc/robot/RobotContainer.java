@@ -49,7 +49,7 @@ public class RobotContainer {
                 if (renderTickCount >= 25) {
                     if (renderer == null) {
                         renderer = new JFrameRenderer(out.mapSizeX, out.mapSizeY, out.map,
-                                pos -> {
+                                (pos, resolution, originX, originY) -> {
                                     subsystemPathExec.setEndGoal(pos);
                                     subsystemPathExec.setState(true);
                                 });
