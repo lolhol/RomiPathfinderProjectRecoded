@@ -30,6 +30,8 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.1'
     implementation files('libs/RPLidar4J-1.0.0.jar')
     implementation files('libs/Cartographer4Java.jar')
+    implementation 'org.slf4j:slf4j-api:1.7.25'
+    implementation 'org.projectlombok:lombok:1.16.18'
     //testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
