@@ -81,13 +81,13 @@ public class SubsystemPathExec extends SubsystemBase {
         return true;
     }
 
-    public boolean setEndGoal(int[] pos, JFrameRenderer renderer) {
+    public boolean setEndGoal(int[] pos, JFrameRenderer renderer, double resolution, double originX, double originY) {
         this.renderer = renderer;
         if (lastOut != null) {
             if (curMap == null) {
-                this.endGoal = lastOut.MapXYtoGlobal(pos);
+                this.endGoal = MathUtil.fromMapToGlobal(pos, resolution, originX, originY);
             } else if (MathUtil.convertTo1D(boardWidth, pos[0], pos[1]) < curMap.length) {
-                this.endGoal = lastOut.MapXYtoGlobal(pos);
+                this.endGoal = MathUtil.fromMapToGlobal(pos, resolution, originX, originY);
                 renderer.clearAdditionalData();
                 renderer.addAdditionalInfo(endGoal);
                 renderer.reDraw();
