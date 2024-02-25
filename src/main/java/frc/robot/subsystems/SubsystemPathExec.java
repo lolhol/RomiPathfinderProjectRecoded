@@ -128,7 +128,7 @@ public class SubsystemPathExec extends SubsystemBase {
                                     (double) curMap.length / 8,
                                     curMap,
                                     boardWidth,
-                                    curMap.length);
+                                    curMap.length, this.isObstructed);
                     globalPathingThreadInitial.start();
                     ticksUntilInitReCalc = 0;
                 } else {
