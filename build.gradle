@@ -32,6 +32,7 @@ dependencies {
     implementation files('libs/Cartographer4Java.jar')
     implementation 'org.slf4j:slf4j-api:1.7.25'
     implementation 'org.projectlombok:lombok:1.16.18'
+    implementation 'com.fazecast:jSerialComm:2.9.3'
     //testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
