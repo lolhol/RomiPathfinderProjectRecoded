@@ -50,7 +50,7 @@ public class RobotContainer {
                     if (renderer == null) {
                         renderer = new JFrameRenderer(out.mapSizeX, out.mapSizeY, out.map,
                                 (pos, resolution, originX, originY) -> {
-                                    subsystemPathExec.setEndGoal(pos);
+                                    subsystemPathExec.setEndGoal(pos, this.renderer);
                                     subsystemPathExec.setState(true);
                                 });
                         renderer.updateResolution(out.resolution);

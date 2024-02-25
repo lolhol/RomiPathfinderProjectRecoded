@@ -44,7 +44,7 @@ public class SubsystemPathExec extends SubsystemBase {
     CartographerOut lastOut = null;
     final Predicate<Byte> isObstructed;
 
-    final JFrameRenderer renderer;
+    JFrameRenderer renderer;
 
     public SubsystemPathExec(SubsystemDrivetrain drivetrain, Predicate<Byte> isObstructed,
                              SubsystemPathExecInterface subsystemPathExecInterface, JFrameRenderer renderer) {
@@ -81,9 +81,33 @@ public class SubsystemPathExec extends SubsystemBase {
         return true;
     }
 
+    public boolean setEndGoal(int[] pos, JFrameRenderer renderer) {
+        this.renderer = renderer;
+        if (lastOut != null) {
+            if (curMap == null) {
+                this.endGoal = lastOut.MapXYtoGlobal(pos);
+            } else if (MathUtil.convertTo1D(boardWidth, pos[0], pos[1]) < curMap.length) {
+                this.endGoal = lastOut.MapXYtoGlobal(pos);
+                renderer.clearAdditionalData();
+                renderer.addAdditionalInfo(endGoal);
+                renderer.reDraw();
+
+                initialCalcList = null;
+                curInitialCalcGoingTo = -2;
+                reRunInitial = true;
+                broken = null;
+                brokenPos = -1;
+            }
+        } else {
+            return false;
+        }
+
+        return true;
+    }
+
     public void tick(CartographerOut out) {
-        if (!isOnline || endGoal == null) return;
         lastOut = out;
+        if (!isOnline || endGoal == null) return;
         curMap = out.map;
         boardWidth = out.mapSizeX;
         int[] curPosMap = out.FromPosToMap(out.functions.GetGlobalData());
