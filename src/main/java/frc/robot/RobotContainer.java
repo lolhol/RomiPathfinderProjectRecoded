@@ -81,6 +81,7 @@ public class RobotContainer {
                 scanCartesianData -> cartographer.updateLidarData(System.currentTimeMillis(), scanCartesianData[0],
                         scanCartesianData[1],
                         scanCartesianData[2]), false, "/dev/ttyUSB0");
+        subsystemLidar.setScanning(true);
         subsystemLidar.startScanning();
     }
 }
