@@ -27,7 +27,7 @@ public class CartographerOut {
     }
 
     public int[] FromPosToMap(float[] curPos) {
-        return new int[]{fromXToMapX(curPos[0]), fromXToMapX(curPos[1])};
+        return new int[]{fromXToMapX(curPos[0]), fromYToMapY(curPos[1])};
     }
 
     public int[] FromPosToMapWithNewMap(float[] curPos, int newMapSizeX, int newMapSizeY, int oldMapX, int oldMapY) {

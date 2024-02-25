@@ -30,7 +30,7 @@ public class SubsystemPathExec extends SubsystemBase {
     boolean reRunInitial = true;
     List<double[]> initialCalcList = null;
     double[] broken = null;
-    int brokenPos = -1;
+    int brokenPos = -2;
 
     int timeUntilCheckIfPathBroken = 0;
 
@@ -38,7 +38,7 @@ public class SubsystemPathExec extends SubsystemBase {
     //
 
     // PathExec going
-    int curInitialCalcGoingTo = -2;
+    int curInitialCalcGoingTo = -1;
     //
 
     CartographerOut lastOut = null;
@@ -69,10 +69,10 @@ public class SubsystemPathExec extends SubsystemBase {
                 renderer.reDraw();
 
                 initialCalcList = null;
-                curInitialCalcGoingTo = -2;
+                curInitialCalcGoingTo = -1;
                 reRunInitial = true;
                 broken = null;
-                brokenPos = -1;
+                brokenPos = -2;
             }
         } else {
             return false;
@@ -93,10 +93,10 @@ public class SubsystemPathExec extends SubsystemBase {
                 renderer.reDraw();
 
                 initialCalcList = null;
-                curInitialCalcGoingTo = -2;
+                curInitialCalcGoingTo = -1;
                 reRunInitial = true;
                 broken = null;
-                brokenPos = -1;
+                brokenPos = -2;
             }
         } else {
             return false;
@@ -121,10 +121,10 @@ public class SubsystemPathExec extends SubsystemBase {
                     resolution = out.resolution;
 
                     globalPathingThreadInitial =
-                            new GlobalPathingThread(brokenPos == -1 ? curPosMap :
+                            new GlobalPathingThread(brokenPos == -2 ? curPosMap :
                                     MathUtil.fromGlobalToMap(initialCalcList.get(brokenPos), out.resolution,
                                             out.originX, out.originY),
-                                    new int[]{out.fromXToMapX(endGoal[0]), out.fromYToMapY(endGoal[0])},
+                                    new int[]{out.fromXToMapX(endGoal[0]), out.fromYToMapY(endGoal[1])},
                                     (double) curMap.length / 8,
                                     curMap,
                                     boardWidth,
@@ -157,7 +157,7 @@ public class SubsystemPathExec extends SubsystemBase {
             if (broken != null) {
                 reRunInitial = true;
             } else {
-                brokenPos = -1;
+                brokenPos = -2;
             }
 
             broken = null;
@@ -166,8 +166,8 @@ public class SubsystemPathExec extends SubsystemBase {
         }
 
 
-        if (curInitialCalcGoingTo >= brokenPos) {
-            curInitialCalcGoingTo = -2;
+        if (curInitialCalcGoingTo >= brokenPos && brokenPos != -2) {
+            curInitialCalcGoingTo = -1;
             initialCalcList = null;
             resetAllMotors();
             return;
@@ -181,8 +181,9 @@ public class SubsystemPathExec extends SubsystemBase {
                 isOnline = false;
                 resetAllMotors();
                 subsystemPathExecInterface.finishedPath(System.currentTimeMillis() - startPathExecTime);
-                return;
             }
+
+            return;
         }
 
         if (startPathExecTime == 0) {
