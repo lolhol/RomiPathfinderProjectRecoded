@@ -4,12 +4,14 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.TimedRobot;
+
 /**
  * The VM is configured to automatically run this class, and to call the run() function when the
  * robot is enabled. If you change the name of this class or the package after creating this
  * project, you must also update the build.gradle file in the project.
  */
-public class Robot extends EducationalRobot {
+public class Robot extends TimedRobot {
     private final RobotContainer contents = new RobotContainer();
 
     /**
@@ -21,14 +23,7 @@ public class Robot extends EducationalRobot {
     }
 
     @Override
-    public void autonomous() {
+    public void autonomousInit() {
         contents.autoInit();
-    }
-
-    /**
-     * This function is run when the robot is enabled.
-     */
-    @Override
-    public void run() {
     }
 }
