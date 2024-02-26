@@ -122,7 +122,7 @@ public class SubsystemPathExec extends SubsystemBase {
                     resolution = out.resolution;
 
                     globalPathingThreadInitial =
-                            new GlobalPathingThread(brokenPos == -2 ? curPosMap :
+                            new GlobalPathingThread(brokenPos == -2 || initialCalcList == null ? curPosMap :
                                     MathUtil.fromGlobalToMap(initialCalcList.get(brokenPos), out.resolution,
                                             out.originX, out.originY),
                                     new int[]{out.fromXToMapX(endGoal[0]), out.fromYToMapY(endGoal[1])},
@@ -183,9 +183,8 @@ public class SubsystemPathExec extends SubsystemBase {
                 isOnline = false;
                 resetAllMotors();
                 subsystemPathExecInterface.finishedPath(System.currentTimeMillis() - startPathExecTime);
+                return;
             }
-
-            return;
         }
 
         if (startPathExecTime == 0) {
