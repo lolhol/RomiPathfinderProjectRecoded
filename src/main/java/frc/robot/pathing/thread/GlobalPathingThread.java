@@ -39,7 +39,7 @@ public class GlobalPathingThread extends Thread {
                         (int) (mapWidth / scaleFactorMap),
                         new Node((int) (start[0] / scaleFactorMap), (int) (start[1] / scaleFactorMap),
                                 null), new Node((int) (end[0] / scaleFactorMap), (int) (end[1] / scaleFactorMap),
-                                null), maxIter, 1, aByte -> aByte == 1);
+                                null), maxIter, 1.5, aByte -> aByte == 1);
 
         if (result != null) {
             nodes = result.reverse();

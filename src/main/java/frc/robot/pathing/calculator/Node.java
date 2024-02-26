@@ -103,7 +103,7 @@ public class Node implements Comparable<Node> {
             if (isObstructed.test(a)) closed.incrementAndGet();
         });
 
-        gCost += closed.get();
+        gCost += closed.get() * 2;
         if (this.parent != null) {
             gCost += parent.getDistanceBetween(this);
         }

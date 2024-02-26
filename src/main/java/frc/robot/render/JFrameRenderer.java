@@ -153,7 +153,7 @@ public class JFrameRenderer extends JPanel {
         } else if (color < 0) {
             color = 0;
         }*/
-        return color > 255 ? 255 : 0;
+        return color < 0 ? 0 : 255;
     }
 
     private int[] getPointInDirection(int[] coordinates, double angle, double dist) {
