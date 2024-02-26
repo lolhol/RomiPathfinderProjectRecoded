@@ -34,11 +34,12 @@ public class GlobalPathingThread extends Thread {
     // FIXME: scaleFactorMap
     @Override
     public void run() {
-        Node result = calculator.run(shortenGrid(map, (int) scaleFactorMap, isObstructed),
-                (int) (mapWidth / scaleFactorMap),
-                new Node((int) (start[0] / scaleFactorMap), (int) (start[1] / scaleFactorMap),
-                        null), new Node((int) (end[0] / scaleFactorMap), (int) (end[1] / scaleFactorMap),
-                        null), maxIter, 1, aByte -> aByte == 1);
+        Node result =
+                calculator.run(scaleGrid(map, mapWidth, map.length / mapWidth, (int) scaleFactorMap, isObstructed),
+                        (int) (mapWidth / scaleFactorMap),
+                        new Node((int) (start[0] / scaleFactorMap), (int) (start[1] / scaleFactorMap),
+                                null), new Node((int) (end[0] / scaleFactorMap), (int) (end[1] / scaleFactorMap),
+                                null), maxIter, 1, aByte -> aByte == 1);
 
         if (result != null) {
             nodes = result.reverse();
@@ -68,6 +69,42 @@ public class GlobalPathingThread extends Thread {
         }
 
         return result;
+    }
+
+    public byte[] scaleGrid(byte[] originalGrid, int originalWidth, int originalHeight, int division,
+                            Predicate<Byte> isObstructed) {
+        int scaledWidth = originalWidth / division;
+        int scaledHeight = originalHeight / division;
+        byte[] scaledGrid = new byte[scaledWidth * scaledHeight];
+
+        for (int y = 0; y < scaledHeight; y++) {
+            for (int x = 0; x < scaledWidth; x++) {
+                int originalX = x * division;
+                int originalY = y * division;
+
+                scaledGrid[y * scaledWidth + x] = (byte) calculateAverage(originalGrid, originalWidth, originalX,
+                        originalY, division,
+                        isObstructed);
+            }
+        }
+
+        return scaledGrid;
+    }
+
+    private int calculateAverage(byte[] originalGrid, int originalWidth, int startX, int startY, int division,
+                                 Predicate<Byte> isObstructed) {
+        int obstructions = 0;
+
+        for (int y = startY; y < startY + division; y++) {
+            for (int x = startX; x < startX + division; x++) {
+                if (x < originalWidth && y < originalGrid.length / originalWidth &&
+                        isObstructed.test(originalGrid[y * originalWidth + x])) {
+                    obstructions++;
+                }
+            }
+        }
+
+        return obstructions;
     }
 
     public Stack<Node> getProgress() {
