@@ -36,9 +36,8 @@ public class GlobalPathingThread extends Thread {
     public void run() {
         Node result = calculator.run(shortenGrid(map, (int) scaleFactorMap, isObstructed),
                 (int) (mapWidth / scaleFactorMap),
-                new Node(start[0], start[1],
-                        null), new Node(end[0],
-                        end[1],
+                new Node((int) (start[0] / scaleFactorMap), (int) (start[1] / scaleFactorMap),
+                        null), new Node((int) (end[0] / scaleFactorMap), (int) (end[1] / scaleFactorMap),
                         null), maxIter, 1, aByte -> aByte == 1);
 
         if (result != null) {

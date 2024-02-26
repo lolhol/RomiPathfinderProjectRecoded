@@ -24,6 +24,7 @@ public class SubsystemPathExec extends SubsystemBase {
     private double[] endGoal;
     private byte[] curMap;
     private int boardWidth;
+    private final int pathingRadius = 8;
 
     // Initial Calc
     int ticksUntilInitReCalc = 50;
@@ -125,7 +126,7 @@ public class SubsystemPathExec extends SubsystemBase {
                                     MathUtil.fromGlobalToMap(initialCalcList.get(brokenPos), out.resolution,
                                             out.originX, out.originY),
                                     new int[]{out.fromXToMapX(endGoal[0]), out.fromYToMapY(endGoal[1])},
-                                    4,
+                                    pathingRadius,
                                     curMap,
                                     boardWidth,
                                     curMap.length, this.isObstructed);
@@ -139,7 +140,8 @@ public class SubsystemPathExec extends SubsystemBase {
                     if (globalPathingThreadInitial.getProgress() == null) {
                         if (globalPathingThreadInitial.isDone) globalPathingThreadInitial = null;
                     } else {
-                        initialCalcList = fromListNodeToGlobalPos(globalPathingThreadInitial.getProgress());
+                        initialCalcList =
+                                fromListNodeToGlobalPos(globalPathingThreadInitial.getProgress(), pathingRadius);
                         globalPathingThreadInitial = null;
                         reRunInitial = false;
                     }
@@ -231,12 +233,14 @@ public class SubsystemPathExec extends SubsystemBase {
         return null;
     }
 
-    private List<double[]> fromListNodeToGlobalPos(List<Node> initial) {
+    private List<double[]> fromListNodeToGlobalPos(List<Node> initial, double res) {
         renderer.clearAdditionalData();
         List<double[]> newList = new ArrayList<>();
 
         for (Node n : initial) {
-            double[] pos = MathUtil.fromMapToGlobal(new int[]{n.x, n.y}, resolution, originXBefore, originYBefore);
+            double[] pos = MathUtil.fromMapToGlobal(new int[]{(int) (n.x * res), (int) (n.y * res)}, resolution,
+                    originXBefore,
+                    originYBefore);
             newList.add(pos);
             renderer.addAdditionalInfo(pos);
         }
