@@ -41,7 +41,7 @@ public class RobotContainer {
                 }
             }
 
-            return color > 255;
+            return color >= 255;
         }, timeTookMS -> System.out.println("Finished Path! Took " + timeTookMS + "ms!"), renderer);
 
         new Thread(() -> {

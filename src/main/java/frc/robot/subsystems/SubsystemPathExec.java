@@ -125,7 +125,7 @@ public class SubsystemPathExec extends SubsystemBase {
                                     MathUtil.fromGlobalToMap(initialCalcList.get(brokenPos), out.resolution,
                                             out.originX, out.originY),
                                     new int[]{out.fromXToMapX(endGoal[0]), out.fromYToMapY(endGoal[1])},
-                                    (double) curMap.length / 8,
+                                    4,
                                     curMap,
                                     boardWidth,
                                     curMap.length, this.isObstructed);
