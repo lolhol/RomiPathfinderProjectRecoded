@@ -163,6 +163,7 @@ public class SubsystemPathExec extends SubsystemBase {
             }
 
             broken = null;
+            timeUntilCheckIfPathBroken = 0;
         } else {
             timeUntilCheckIfPathBroken++;
         }
@@ -171,6 +172,7 @@ public class SubsystemPathExec extends SubsystemBase {
         if (curInitialCalcGoingTo >= brokenPos && brokenPos != -2) {
             curInitialCalcGoingTo = -1;
             initialCalcList = null;
+            reRunInitial = true;
             resetAllMotors();
             return;
         }
@@ -178,6 +180,12 @@ public class SubsystemPathExec extends SubsystemBase {
         if (curInitialCalcGoingTo < 0 || out.distanceFromGlobalToMap(out.functions.GetGlobalData(),
                 initialCalcList.get(curInitialCalcGoingTo)) < 0.1) {
             curInitialCalcGoingTo++;
+
+            if (curInitialCalcGoingTo >= initialCalcList.size()) {
+                isOnline = false;
+                resetAllMotors();
+                subsystemPathExecInterface.finishedPath(System.currentTimeMillis() - startPathExecTime);
+            }
         }
 
         if (out.distanceFromGlobalToMap(out.functions.GetGlobalData(),
