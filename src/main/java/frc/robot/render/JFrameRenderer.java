@@ -39,7 +39,7 @@ public class JFrameRenderer extends JPanel {
         frame.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                onClick.onMouseClickPosition(new int[]{e.getX(), e.getY()}, resolution, originX, originY);
+                onClick.onMouseClickPosition(new int[]{e.getX(), e.getY() - 35}, resolution, originX, originY);
             }
         });
 

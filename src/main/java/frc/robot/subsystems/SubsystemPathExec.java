@@ -178,13 +178,14 @@ public class SubsystemPathExec extends SubsystemBase {
         if (curInitialCalcGoingTo < 0 || out.distanceFromGlobalToMap(out.functions.GetGlobalData(),
                 initialCalcList.get(curInitialCalcGoingTo)) < 0.1) {
             curInitialCalcGoingTo++;
+        }
 
-            if (curInitialCalcGoingTo >= initialCalcList.size()) {
-                isOnline = false;
-                resetAllMotors();
-                subsystemPathExecInterface.finishedPath(System.currentTimeMillis() - startPathExecTime);
-                return;
-            }
+        if (out.distanceFromGlobalToMap(out.functions.GetGlobalData(),
+                endGoal) < 0.1) {
+            isOnline = false;
+            resetAllMotors();
+            subsystemPathExecInterface.finishedPath(System.currentTimeMillis() - startPathExecTime);
+            return;
         }
 
         if (startPathExecTime == 0) {
@@ -196,7 +197,7 @@ public class SubsystemPathExec extends SubsystemBase {
             if (drivetrain.isGoing) drivetrain.forwardBackward(0);
             drivetrain.turn(angleToTurn < 0, 35);
         } else {
-            drivetrain.forwardBackward(35);
+            drivetrain.forwardBackward(50);
         }
     }
 
