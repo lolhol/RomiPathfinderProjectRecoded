@@ -11,18 +11,18 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class SubsystemDrivetrain extends SubsystemBase {
 
-    private static final double kCountsPerRevolution = 1440.0;
-    private static final double kWheelDiameterInch = 2.75591; // 70 mm
+    public final double kCountsPerRevolution = 1440.0;
+    public final double kWheelDiameterInch = 2.75591; // 70 mm
 
     // The Romi has the left and right motors set to
     // PWM channels 0 and 1 respectively
-    private final Spark m_leftMotor = new Spark(0);
-    private final Spark m_rightMotor = new Spark(1);
+    public final Spark m_leftMotor = new Spark(0);
+    public final Spark m_rightMotor = new Spark(1);
 
     // The Romi has onboard encoders that are hardcoded
     // to use DIO pins 4/5 and 6/7 for the left and right
-    private final Encoder m_leftEncoder = new Encoder(4, 5);
-    private final Encoder m_rightEncoder = new Encoder(6, 7);
+    public final Encoder m_leftEncoder = new Encoder(4, 5);
+    public final Encoder m_rightEncoder = new Encoder(6, 7);
 
     private double curSpeedPerc = 0;
     public boolean turning = false;

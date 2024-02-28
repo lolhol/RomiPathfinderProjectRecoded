@@ -82,29 +82,27 @@ public class GlobalPathingThread extends Thread {
                 int originalX = x * division;
                 int originalY = y * division;
 
-                scaledGrid[y * scaledWidth + x] = (byte) calculateAverage(originalGrid, originalWidth, originalX,
+                scaledGrid[y * scaledWidth + x] = (byte) (isObstructed(originalGrid, originalWidth, originalX,
                         originalY, division,
-                        isObstructed);
+                        isObstructed) ? 1 : 0);
             }
         }
 
         return scaledGrid;
     }
 
-    private int calculateAverage(byte[] originalGrid, int originalWidth, int startX, int startY, int division,
+    private boolean isObstructed(byte[] originalGrid, int originalWidth, int startX, int startY, int division,
                                  Predicate<Byte> isObstructed) {
-        int obstructions = 0;
-
         for (int y = startY; y < startY + division; y++) {
             for (int x = startX; x < startX + division; x++) {
                 if (x < originalWidth && y < originalGrid.length / originalWidth &&
                         isObstructed.test(originalGrid[y * originalWidth + x])) {
-                    obstructions++;
+                    return true;
                 }
             }
         }
 
-        return obstructions;
+        return false;
     }
 
     public Stack<Node> getProgress() {

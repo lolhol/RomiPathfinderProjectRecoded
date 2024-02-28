@@ -8,6 +8,13 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
+allprojects {
+    repositories {
+        jcenter()
+        maven { url "https://jitpack.io" }  //Add this line
+    }
+}
+
 def ROBOT_MAIN_CLASS = "frc.robot.Main"
 
 // Set this to true to enable desktop support.
