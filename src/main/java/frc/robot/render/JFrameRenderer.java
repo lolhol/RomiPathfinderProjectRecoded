@@ -105,7 +105,7 @@ public class JFrameRenderer extends JPanel {
             g.fillRect(curPosMap[0], curPosMap[1], 2, 2);
             g.drawLine(curPosMap[0], curPosMap[1], point2[0], point2[1]);
 
-            this.updatePosition(newPosition);
+            this.setCurPosition(newPosition);
             curPosMap = MathUtil.fromGlobalToMap(curPosGlobal, resolution, originX, originY);
             point2 = getPointInDirection(curPosMap, curPosGlobal[2], 20);
 
