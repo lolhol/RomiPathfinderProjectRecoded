@@ -53,20 +53,21 @@ public class RobotContainer {
                                     subsystemPathExec.setEndGoal(pos, this.renderer, resolution, originX, originY);
                                     subsystemPathExec.setState(true);
                                 });
-                        renderer.updateResolution(out.resolution);
-                        renderer.updateGlobalOrigin(new double[]{out.originX, out.originY});
-                        renderer.setCurPosition(out.functions.GetGlobalData());
                         renderer.reDraw();
                     } else {
                         renderer.updateResolution(out.resolution);
-                        renderer.updateGlobalOrigin(new double[]{out.originX, out.originY});
-                        renderer.setCurPosition(out.functions.GetGlobalData());
                         renderer.putData(out.map, out.mapSizeX, out.mapSizeY);
                     }
 
                     renderTickCount = 0;
                 } else {
                     renderTickCount++;
+                }
+
+                if (renderer != null) {
+                    renderer.updateResolution(out.resolution);
+                    renderer.updateGlobalOrigin(new double[]{out.originX, out.originY});
+                    renderer.updatePosition(out.functions.GetGlobalData());
                 }
             });
 

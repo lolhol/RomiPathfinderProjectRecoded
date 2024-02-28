@@ -95,6 +95,27 @@ public class JFrameRenderer extends JPanel {
         originY = newOrigin[1];
     }
 
+    public void updatePosition(float[] newPosition) {
+        if (curPosGlobal != null) {
+            Graphics g = this.getGraphics();
+
+            int[] curPosMap = MathUtil.fromGlobalToMap(curPosGlobal, resolution, originX, originY);
+            int[] point2 = getPointInDirection(curPosMap, curPosGlobal[2], 20);
+            g.setColor(Color.WHITE);
+            g.fillRect(curPosMap[0], curPosMap[1], 2, 2);
+            g.drawLine(curPosMap[0], curPosMap[1], point2[0], point2[1]);
+
+            this.updatePosition(newPosition);
+            curPosMap = MathUtil.fromGlobalToMap(curPosGlobal, resolution, originX, originY);
+            point2 = getPointInDirection(curPosMap, curPosGlobal[2], 20);
+
+            g.setColor(Color.BLUE);
+            g.fillRect(curPosMap[0], curPosMap[1], 2, 2);
+            g.setColor(Color.CYAN);
+            g.drawLine(curPosMap[0], curPosMap[1], point2[0], point2[1]);
+        }
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
