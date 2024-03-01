@@ -8,6 +8,7 @@ import frc.robot.render.JFrameRenderer;
 import frc.robot.util.MathUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -183,6 +184,7 @@ public class SubsystemPathExec extends SubsystemBase {
             initialCalcList = null;
             //reRunInitial = true;
             resetAllMotors();
+            curInitialCalcGoingTo = -1;
             return;
         }
 
@@ -194,6 +196,8 @@ public class SubsystemPathExec extends SubsystemBase {
                 isOnline = false;
                 resetAllMotors();
                 subsystemPathExecInterface.finishedPath(System.currentTimeMillis() - startPathExecTime);
+                curInitialCalcGoingTo = -1;
+                return;
             }
         }
 
@@ -204,9 +208,9 @@ public class SubsystemPathExec extends SubsystemBase {
         double angleToTurn = getAngle(initialCalcList.get(curInitialCalcGoingTo), out.functions.GetGlobalData());
         if (Math.abs(angleToTurn) >= 15) {
             if (drivetrain.isGoing) drivetrain.forwardBackward(0);
-            drivetrain.turn(angleToTurn < 0, 35);
+            drivetrain.turn(angleToTurn < 0, 45);
         } else {
-            drivetrain.forwardBackward(50);
+            drivetrain.forwardBackward(60);
         }
     }
 
@@ -256,6 +260,7 @@ public class SubsystemPathExec extends SubsystemBase {
 
         renderer.addAdditionalInfo(endGoal);
         renderer.reDraw();
+        Collections.reverse(newList);
 
         return newList;
     }
