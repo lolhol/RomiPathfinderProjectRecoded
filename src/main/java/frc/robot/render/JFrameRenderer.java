@@ -132,6 +132,7 @@ public class JFrameRenderer extends JPanel {
             }
         }
 
+        int[] prevPos = null;
         for (double[] cur : additionalInfo) {
             int[] i = MathUtil.fromGlobalToMap(cur, resolution, originX, originY);
             g.setColor(Color.RED);
@@ -141,6 +142,13 @@ public class JFrameRenderer extends JPanel {
                 g.setColor(Color.BLUE);
                 int[] point2 = getPointInDirection(i, cur[2], 20);
                 g.drawLine(i[0], i[1], point2[0], point2[1]);
+            }
+
+            if (prevPos == null) {
+                prevPos = i;
+            } else {
+                g.setColor(Color.ORANGE);
+                g.drawLine(prevPos[0], prevPos[1], i[0], i[1]);
             }
         }
 
