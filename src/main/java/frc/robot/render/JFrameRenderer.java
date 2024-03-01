@@ -148,8 +148,8 @@ public class JFrameRenderer extends JPanel {
                 g.setColor(Color.ORANGE);
                 g.drawLine(prevPos[0], prevPos[1], i[0], i[1]);
             }
-            
-            prevPos = i;
+
+            //prevPos = i;
         }
 
         if (curPosGlobal != null) {

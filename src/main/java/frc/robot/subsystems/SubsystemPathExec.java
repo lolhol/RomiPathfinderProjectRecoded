@@ -144,6 +144,7 @@ public class SubsystemPathExec extends SubsystemBase {
                         initialCalcList = shortenList(
                                 fromListNodeToGlobalPos(globalPathingThreadInitial.getProgress(), pathingRadius),
                                 out.resolution, out.originX, out.originY, out.map, out.mapSizeX);
+                        addPathToRenderer(initialCalcList);
                         globalPathingThreadInitial = null;
                         reRunInitial = false;
                         brokenPos = -2;
@@ -248,7 +249,6 @@ public class SubsystemPathExec extends SubsystemBase {
     }
 
     private List<double[]> fromListNodeToGlobalPos(List<Node> initial, double res) {
-        renderer.clearAdditionalData();
         List<double[]> newList = new ArrayList<>();
 
         for (Node n : initial) {
@@ -256,14 +256,20 @@ public class SubsystemPathExec extends SubsystemBase {
                     originXBefore,
                     originYBefore);
             newList.add(pos);
-            renderer.addAdditionalInfo(pos);
+        }
+        Collections.reverse(newList);
+        return newList;
+    }
+
+    private void addPathToRenderer(List<double[]> path) {
+        renderer.clearAdditionalData();
+
+        for (double[] i : path) {
+            renderer.addAdditionalInfo(i);
         }
 
         renderer.addAdditionalInfo(endGoal);
         renderer.reDraw();
-        Collections.reverse(newList);
-
-        return newList;
     }
 
     private List<double[]> shortenList(List<double[]> init, double res, double x, double y, byte[] map, int mapWidth) {
