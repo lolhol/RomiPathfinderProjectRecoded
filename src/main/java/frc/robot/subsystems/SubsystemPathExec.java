@@ -181,7 +181,7 @@ public class SubsystemPathExec extends SubsystemBase {
         if (curInitialCalcGoingTo >= brokenPos && brokenPos != -2) {
             curInitialCalcGoingTo = -1;
             initialCalcList = null;
-            reRunInitial = true;
+            //reRunInitial = true;
             resetAllMotors();
             return;
         }
