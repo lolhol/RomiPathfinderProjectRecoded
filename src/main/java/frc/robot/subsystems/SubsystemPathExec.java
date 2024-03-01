@@ -283,6 +283,7 @@ public class SubsystemPathExec extends SubsystemBase {
             }
         }
 
+        returnList.add(init.get(init.size() - 1));
         return returnList;
     }
 
