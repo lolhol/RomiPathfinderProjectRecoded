@@ -154,7 +154,7 @@ public class SubsystemPathExec extends SubsystemBase {
         if (initialCalcList == null) return;
 
         // Check to see if we need to re-calc the initial path
-        if (timeUntilCheckIfPathBroken > 50) {
+        /*if (timeUntilCheckIfPathBroken > 50) {
             broken = nodeFromWhichToReCalc(initialCalcList, out);
             brokenPos = initialCalcList.indexOf(broken);
             if (broken != null) {
@@ -167,7 +167,7 @@ public class SubsystemPathExec extends SubsystemBase {
             timeUntilCheckIfPathBroken = 0;
         } else {
             timeUntilCheckIfPathBroken++;
-        }
+        }*/
 
 
         if (curInitialCalcGoingTo >= brokenPos && brokenPos != -2) {
