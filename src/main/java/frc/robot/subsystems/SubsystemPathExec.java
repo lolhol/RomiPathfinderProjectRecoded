@@ -141,8 +141,9 @@ public class SubsystemPathExec extends SubsystemBase {
                     if (globalPathingThreadInitial.getProgress() == null) {
                         if (globalPathingThreadInitial.isDone) globalPathingThreadInitial = null;
                     } else {
-                        initialCalcList =
-                                fromListNodeToGlobalPos(globalPathingThreadInitial.getProgress(), pathingRadius);
+                        initialCalcList = shortenList(
+                                fromListNodeToGlobalPos(globalPathingThreadInitial.getProgress(), pathingRadius),
+                                out.resolution, out.originX, out.originY, out.map, out.mapSizeX);
                         globalPathingThreadInitial = null;
                         reRunInitial = false;
                         brokenPos = -2;
@@ -263,6 +264,26 @@ public class SubsystemPathExec extends SubsystemBase {
         Collections.reverse(newList);
 
         return newList;
+    }
+
+    private List<double[]> shortenList(List<double[]> init, double res, double x, double y, byte[] map, int mapWidth) {
+        List<double[]> returnList = new ArrayList<>();
+        int[] prevPos = null;
+        for (int i = 0; i < init.size(); i++) {
+            int[] pos = MathUtil.fromGlobalToMap(init.get(i), res, x, y);
+            if (prevPos == null) {
+                prevPos = pos;
+                returnList.add(MathUtil.fromMapToGlobal(pos, res, x, y));
+                continue;
+            }
+
+            if (MathUtil.isObstructedBetweenPoints(prevPos, pos, map, mapWidth, this.isObstructed)) {
+                returnList.add(init.get(i - 1));
+                prevPos = MathUtil.fromGlobalToMap(init.get(i - 1), res, x, y);
+            }
+        }
+
+        return returnList;
     }
 
     public interface SubsystemPathExecInterface {
