@@ -144,6 +144,7 @@ public class SubsystemPathExec extends SubsystemBase {
                                 fromListNodeToGlobalPos(globalPathingThreadInitial.getProgress(), pathingRadius);
                         globalPathingThreadInitial = null;
                         reRunInitial = false;
+                        brokenPos = -2;
                     }
                 }
             }
